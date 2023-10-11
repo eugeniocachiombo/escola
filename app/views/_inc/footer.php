@@ -3,15 +3,15 @@
 	<div class="container d-table align-items-center">
             <div class="container d-block d-md-flex pb-2">
                     <!--SOBRE A EMPRESA-->
-                <div class="col pt-2" style="height: auto;">
+                <div class="col pt-2" style="height: auto; ">
                     <p class="h6 text-left text-md-center pt-2"><b>Sobre</b>
                         <hr>
                     </p>
-                    <i class="fas fa-building" style="font-size:24px; margin-right: 20px;"></i>
+                    <i class="d-none fas fa-building" style="font-size:24px; margin-right: 20px;"></i>
                     <div class="col text-left text-justify">
 						Um site fitício, simulação de um sistema de gestão de notas. Este site foi criador pelo estudante Eugénio Cachiombo<br>
                     </div>
-                    <hr>
+                    <hr class="d-block d-md-none">
                 </div>
 
                 <!--CONTACTOS-->
@@ -42,7 +42,7 @@
                         <i class="fab fa-facebook" style="font-size:24px; margin-right: 20px"></i><b>Escola Cachiombo Oficial</b>
 
                     </div> <br>
-                    <hr>
+                    <hr class="d-block d-md-none">
                 </div>
 
                 <!--LOCALIZAÇÃO-->
@@ -55,8 +55,7 @@
                         Província de Luanda <br>
                         Município do Cazenga, bairro Hoji-Yá-Henda
                     </div>
-                    <hr>
-
+                    <hr class="d-block d-md-none">
                 </div>
             </div>
 

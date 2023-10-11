@@ -10,44 +10,50 @@
 	}
 
 	#logo_left {
-		animation: logo_left 2s infinite;
+		animation: logo_left 1s infinite;
 	}
 
 	#logo_right {
-		animation: logo_right 2s infinite;
+		animation: logo_right 1s infinite;
 	}
 
 	@keyframes logo_right{
 		0%{
 			filter: opacity(10%);
 			width: 2%;
+			transform: rotate(0deg);
 		}
 		
 		50%{
 			filter: opacity(80%);
 			width: 15%;
+			transform: rotate(180deg);
 		}
 
 		100%{
 			filter: opacity(10%);
 			width: 2%;
+			transform: rotate(320deg);
 		}
 	}
 
 	@keyframes logo_left{
 		0%{
-			filter: opacity(80%);
-			width: 30%;
+			filter: opacity(10%);
+			width: 2%;
+			transform: rotate(0deg);
 		}
 		
 		50%{
-			filter: opacity(10%);
+			filter: opacity(80%);
 			width: 15%;
+			transform: rotate(180deg);
 		}
 
 		100%{
-			filter: opacity(80%);
-			width: 30%;
+			filter: opacity(10%);
+			width: 2%;
+			transform: rotate(320deg);
 		}
 	}
 
@@ -55,16 +61,19 @@
 		0%{
 			filter: opacity(10%);
 			width: 5%;
+			
 		}
 		
 		50%{
 			filter: opacity(80%);
 			width: 20%;
+			
 		}
 
 		100%{
 			filter: opacity(10%);
 			width: 5%;
+			
 		}
 	}
 </style>
@@ -87,7 +96,7 @@
 	<script>
 		setTimeout(() => {
 			window.location = "app/views/inicio/";
-		}, 5000);
+		}, 3000);
 	</script>	
 </body>
 	
