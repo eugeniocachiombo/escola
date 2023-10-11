@@ -1,0 +1,24 @@
+#bars{
+    display: flex;
+}
+
+#bars li{
+    padding: 5px;
+    color: #056a9a;
+}
+
+#bars li:hover{
+    background: #056a9a;
+    color: white;
+    cursor: pointer;
+}
+
+a{
+    font-size: 20px;
+    text-decoration: none;
+    color: #056a9a;
+}
+
+a:hover{
+    color: white;
+}

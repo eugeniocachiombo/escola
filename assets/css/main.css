@@ -1,0 +1,40 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+}
+
+body {
+    font-family:  'Arial Narrow', Arial, sans-serif;
+    background: #222;
+    color: white;
+}
+
+header {
+    min-height: 30vh;
+    background: #056a9a;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+main {
+    min-height: 60vh;
+}
+
+footer {
+    min-height: 30vh;
+    background: #056a9a;
+    color: white;
+    padding-bottom: 10px;
+}
+
+#image_logo {
+    width: 120px;
+    border-radius: 50%;
+}
+
+#text_logo{
+    font-family:  cursive;
+}
