@@ -1,7 +1,95 @@
-<script>
-	window.location = "app/views/inicio/";
-</script>
+<style>
+	body, #logo_left, #logo_right {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
+	#logo {
+		animation: opacidade 2s infinite;
+	}
+
+	#logo_left {
+		animation: logo_left 2s infinite;
+	}
+
+	#logo_right {
+		animation: logo_right 2s infinite;
+	}
+
+	@keyframes logo_right{
+		0%{
+			filter: opacity(10%);
+			width: 2%;
+		}
+		
+		50%{
+			filter: opacity(80%);
+			width: 15%;
+		}
+
+		100%{
+			filter: opacity(10%);
+			width: 2%;
+		}
+	}
+
+	@keyframes logo_left{
+		0%{
+			filter: opacity(80%);
+			width: 30%;
+		}
+		
+		50%{
+			filter: opacity(10%);
+			width: 15%;
+		}
+
+		100%{
+			filter: opacity(80%);
+			width: 30%;
+		}
+	}
+
+	@keyframes opacidade{
+		0%{
+			filter: opacity(10%);
+			width: 5%;
+		}
+		
+		50%{
+			filter: opacity(80%);
+			width: 20%;
+		}
+
+		100%{
+			filter: opacity(10%);
+			width: 5%;
+		}
+	}
+</style>
+
+<body style="background: #222">
+
+	<div id="logo_left">
+		<img src="assets/img/logo.png" style="border-radius: 50%" width="50%" alt="">
+	</div>
+
+	<div id="logo">
+		<img src="assets/img/logo.png" style="border-radius: 50%" width="100%" alt="">
+	</div>
+
+	<div id="logo_right">
+		<img src="assets/img/logo.png" style="border-radius: 50%" width="50%" alt="">
+	</div>
+
+
+	<script>
+		setTimeout(() => {
+			window.location = "app/views/inicio/";
+		}, 5000);
+	</script>	
+</body>
 	
 
 	
