@@ -1,24 +1,40 @@
-#bars{
+#bars_large{
     display: flex;
 }
 
-#bars li{
+#bars_large a{
     padding: 5px;
     color: #056a9a;
+    font-size: 20px;
+    text-decoration: none;
 }
 
-#bars li:hover{
+#bars_large a:hover{
     background: #056a9a;
     color: white;
     cursor: pointer;
 }
 
-a{
-    font-size: 20px;
-    text-decoration: none;
-    color: #056a9a;
+
+/*---------------------------*/
+
+
+#bars_small a li:hover {
+    background: white;
 }
 
-a:hover{
-    color: white;
+#bars_small a li {
+    padding: 5px;
 }
+
+#bars_small a{
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+#bars_small a:hover{
+    color: #222;
+    cursor: pointer;
+}
+
