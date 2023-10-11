@@ -1,0 +1,57 @@
+input[type="text"], input[type="password"]{
+    font-weight: bold;
+    border-color: white;
+    border-style: double;
+    border: 3px solid white;
+    font-size: 15px;
+}
+
+select::-ms-expand{
+    display: block;
+}
+
+select {
+    font-weight: bold;
+    background: rgba(1, 207, 207, 0.788);
+    color: white;
+    border-color: white;
+    border-style: double;
+    border: 3px solid white;
+    padding: 30px;
+}
+
+input[type="submit"], button, #btnEntrar, 
+#btnCdastrar, select {
+    font-weight: bold;
+    background: rgba(1, 207, 207, 0.788);
+    color: white;
+    border-color: white;
+    border-style: double;
+    border: 3px solid white;
+    font-size: 15px;
+    padding: 10px;
+}
+
+input[type="submit"]:hover,  select:hover,
+#btnEntrar:hover, #btnCdastrar:hover
+{
+    background: rgba(158, 48, 94, 0.904);
+    color: white;
+}
+
+
+#erroUser{
+    margin: 5px;
+    text-align: center;
+    color: white;
+    background: rgb(211, 23, 23);
+    width: content;
+}
+
+#sucessoUser{
+    margin: 5px;
+    text-align: center;
+    color: white;
+    background: #299;
+    width: content;
+}
