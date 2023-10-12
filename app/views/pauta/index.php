@@ -1,5 +1,5 @@
-<?php include '../pauta/menu/bars.php';?>
 <?php include '../_inc/headHTML.php';?>
+<?php include '../pauta/menu/bars.php';?>
 <?php include '../_inc/header.php';?>
 <?php include '../../config/db/connection.php';?>
 <?php include '../../dao/pauta_dao.php';?>

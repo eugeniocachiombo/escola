@@ -1,5 +1,5 @@
-<?php include 'menu/bars.php';?>
 <?php include '../_inc/headHTML.php';?>
+<?php include 'menu/bars.php';?>
 <?php include '../_inc/header.php';?>
 <title>Página Inicial</title>
 
