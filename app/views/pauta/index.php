@@ -4,9 +4,6 @@
 <?php include '../../config/db/connection.php';?>
 <title>Pauta</title>
 
-<head>
-	<title>Login</title>
-	<meta charset="utf-8">
 	<style type="text/css">
 		table {
 			width: 100%;
@@ -78,10 +75,10 @@
 			color: white;
 		}
 	</style>
-</head>
 
-<body>
 
+
+	<main>
 	<center>
 		<a href="Vermelhor.php" style="background: green; color: white;">Ver Melhor Classificação</a>
 	</center> <br>
@@ -163,55 +160,8 @@
 				
 			?>
 			
-			<?php	
-			/*
-			foreach ($result as $value) { ?>
-
-			<tr>
-				<?php $cont = $cont + 1;     
-
-
-			if ($cont == 1) {
-			?>
-				<td id="a1"> <?php echo $value["disciplina"]?> </td>
-
-				<?php	} else if ($cont == 2) {?>
-				<td id="a2"> <?php echo $value["disciplina"]?> </td>
-
-				<?php	} elseif ($cont == 3) {?>
-				<td id="a3"> <?php echo $value["disciplina"]?> </td>
-
-				<?php	} elseif ($cont == 4) {?>
-				<td id="a4"> <?php echo $value["disciplina"]?> </td>
-
-				<?php	$cont = $cont - 4; 
-			} 
-			?>
-
-				<?php 
-
-			if ($value["nota"] >= 9.5) { ?>
-
-				<td id="positiva"> <?php echo $value["nomeAluno"]?> </td>
-				<td id="posinota"> <?php echo intval($value["nota"]) ?> </td>
-
-				<?php	} else { ?>
-
-				<td id="negativa"> <?php echo $value["nomeAluno"]?> </td>
-				<td id="neganota"> <?php echo intval($value["nota"])?> </td>
-
-				<?php	}?>
-
-			</tr>
-
-			<?php	
-
-			//<h3>Em breve serão lançadas as pautas dos alunos neste site</h3>
-
-
-			} */?>
 		</table>
 	</div>
-</body>
-
-</html>
+	</main>
+<?php include '../_inc/footer.php';?>
+<?php include '../_inc/footHTML.php';?>
