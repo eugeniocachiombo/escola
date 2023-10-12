@@ -1,16 +1,16 @@
 INSERT INTO `escola`.`aluno`
-(`nome_aluno`,`senha_aluno`,`idade_aluno`,`morada_aluno`,`genero_aluno`)
+(`nome_aluno`,`email_aluno`,`senha_aluno`,`idade_aluno`,`morada_aluno`,`genero_aluno`)
 VALUES
-('Eugenio António','123456','23','Cazenga','M'),
-('Miguel Dias','123456','23','Cazenga','M'),
-('Paulo José','123456','23','Cazenga','M');
+('Eugenio António', 'eugenio@gmail.com', '123456','23','Cazenga','M'),
+('Miguel Dias', 'miguel@gmail.com', '123456','23','Cazenga','M'),
+('Paulo José', 'paulo@gmail.com', '123456','23','Cazenga','M');
 
 INSERT INTO `escola`.`professor`
-(`nome_prof`,`senha_prof`,`idade_prof`,`morada_prof`,`genero_prof`)
+(`nome_prof`,`email_prof`,`senha_prof`,`idade_prof`,`morada_prof`,`genero_prof`)
 VALUES
-('Gabriel Jacinto','123456','23','Cazenga','M'),
-('Manuel Paulino','123456','23','Cazenga','M'),
-('Paulo Figueira','123456','23','Cazenga','M');
+('Gabriel Jacinto', 'gabriel@gmail.com','123456','23','Cazenga','M'),
+('Manuel Paulino', 'manuel@gmail.com', '123456','23','Cazenga','M'),
+('Paulo Figueira', 'paulo@gmail.com', '123456','23','Cazenga','M');
 
 
 INSERT INTO `escola`.`disciplina`

@@ -7,6 +7,7 @@ use escola;
 CREATE TABLE `aluno` (
   `id_aluno` int primary key AUTO_INCREMENT NOT NULL,
   `nome_aluno` varchar(50) DEFAULT NULL,
+  `email_aluno` varchar(50) DEFAULT NULL,
   `senha_aluno` varchar(50) DEFAULT NULL,
   `idade_aluno` int(11) DEFAULT NULL,
   `morada_aluno` varchar(50) DEFAULT NULL,
@@ -16,6 +17,7 @@ CREATE TABLE `aluno` (
 CREATE TABLE `professor` (
   `id_prof` int primary key AUTO_INCREMENT NOT NULL,
   `nome_prof` varchar(50) DEFAULT NULL,
+  `email_prof` varchar(50) DEFAULT NULL,
   `senha_prof` varchar(50) DEFAULT NULL,
   `idade_prof` int(11) DEFAULT NULL,
   `morada_prof` varchar(50) DEFAULT NULL,
