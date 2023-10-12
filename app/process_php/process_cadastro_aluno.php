@@ -14,17 +14,11 @@ if ( isset( $_POST[ 'cadastrar' ] ) ) {
         echo "<p align= 'center' style= 'background: red' > Existe campo vazio </p>";
 
     } else {
-        $con = GetConnection();
-        $sql = 'insert into aluno(nome_aluno, email_aluno, senha_aluno, idade_aluno, morada_aluno, genero_aluno) values(?, ?, md5(?), ?, ?, ?)';
-        $stmt = $con->prepare( $sql );
-        $stmt->bindValue( 1, $nome );
-        $stmt->bindValue( 2, $email );
-        $stmt->bindValue( 3, $password );
-        $stmt->bindValue( 4, $idade );
-        $stmt->bindValue( 5, $morada );
-        $stmt->bindValue( 6, $genero );
+        $person = new Pessoa(0, $nome, $email, $idade, $genero, $morada);
+        $aluno_dao = new AlunoDao();
+        $result = $aluno_dao->Create($person);
 
-        if ( $stmt->execute() ) {
+        if ( $result ) {
             echo "<p align= 'center' style= 'background: green' > Cadastrado com sucesso </p>";
         } else {
             echo "<p align= 'center' style= 'background: red' > Erro ao inserir </p>";

@@ -2,6 +2,8 @@
 <?php include 'menu/bars.php';?>
 <?php include '../_inc/header.php';?>
 <?php include '../../config/db/connection.php';?>
+<?php include '../../class/pessoa.php';?>
+<?php include '../../dao/aluno_dao.php';?>
 <title>Cadastrar Aluno</title>
 
 <main class=" d-flex align-items-center mb-4 mt-4">

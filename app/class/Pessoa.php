@@ -1,62 +1,79 @@
 <?php
 
+class Pessoa {
 	
-	abstract class Pessoa
-	{
-		private $id;
-		private $nome;
-		private $idade;
-		private $genero;
-		private $morada;
+    private $id;
+    private $nome;
+    private $email;
+    private $senha;
+    private $idade;
+    private $genero;
+	private $morada;
+	
+	function __construct($id, $nome, $email, $idade, $genero, $morada) {
+        $this->id = $id;
+        $this->nome = $nome;
+        $this->email = $email;
+        $this->idade = $idade;
+        $this->genero = $genero;
+        $this->morada = $morada;
+    }
 
-		public function getId(){
-			return $this->id;
-		}
-		
-		public function setId(int $i){
-			$this->id = $i;
-		}
+    public function GetId() {
+        return $this->id;
+    }
 
-		public function getNome(){
-			return $this->nome;
-		}
-		
-		public function setNome(String $nom){
-			$this->nome = $nom;
-		}
+    public function SetId( int $id ) {
+        $this->id = $id;
+    }
 
-		public function getIdade(){
-			return $this->idade;
-		}
-		
-		public function setIdade(int $ida){
-			$this->idade = $ida;
-		}
+    public function GetNome() {
+        return $this->nome;
+    }
 
-		public function getGenero(){
-			return $this->genero;
-		}
-		
-		public function setGenero(String $ge){
-			$this->genero = $ge;
-		}
+    public function SetNome( String $nome ) {
+        $this->nome = $nome;
+    }
 
-		public function getMorada(){
-			return $this->morada;
-		}
-		
-		public function setMorada(String $mora){
-			$this->morada = $mora;
-		}
-	}
+    public function GetSenha() {
+        return $this->senha;
+    }
 
+    public function SetSenha( String $senha ) {
+        $this->senha = $senha;
+    }
 
+    public function GetEmail() {
+        return $this->email;
+    }
 
+    public function SetEmail( String $email ) {
+        $this->email = $email;
+    }
 
+    public function GetIdade() {
+        return $this->idade;
+    }
 
+    public function SetIdade( int $idade ) {
+        $this->idade = $idade;
+    }
 
+    public function GetGenero() {
+        return $this->genero;
+    }
 
+    public function SetGenero( String $genero ) {
+        $this->genero = $genero;
+    }
 
+    public function GetMorada() {
+        return $this->morada;
+    }
 
+    public function SetMorada( String $morada ) {
+        $this->morada = $morada;
+    }
+}
 
 ?>

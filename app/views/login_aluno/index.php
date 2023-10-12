@@ -2,6 +2,7 @@
 <?php include 'menu/bars.php';?>
 <?php include '../_inc/header.php';?>
 <?php include '../../config/db/connection.php';?>
+<?php include '../../dao/aluno_dao.php';?>
 <title>Autenticação</title>
 
 <main class=" d-flex align-items-center">

@@ -3,19 +3,13 @@ if ( isset( $_POST[ 'iniciar_sessao' ] ) ) {
 
     $email = $_POST[ 'email' ];
     $senha = $_POST[ 'senha' ];
+    $aluno_dao = new AlunoDao();
 
     if ( $email ==  '' || $senha == '' ) {
         echo "<p align= 'center' style= 'background: red; color: white' > Existem campo vazio </p>";
     } else {
-
-        $con = GetConnection();
-        $sql = "select * from aluno where email_aluno = ? and senha_aluno = md5(?)";
-        $stmt = $con->prepare( $sql );
-        $stmt->bindValue( 1, $email );
-        $stmt->bindValue( 2, $senha );
-        $stmt->execute();
-        $dates_aluno = $stmt->fetch();
-
+        
+        $dates_aluno = $aluno_dao->GetAutenticate($email, $senha);
         if ( $dates_aluno ) {
 
             $_SESSION[ 'id' ] = $dates_aluno[ 'id_aluno' ];
