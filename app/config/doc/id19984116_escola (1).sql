@@ -43,7 +43,7 @@ CREATE TABLE `marcar_prova` (
 CREATE TABLE `media` (
   `id_media` int primary key AUTO_INCREMENT NOT NULL,
   `id_aluno` INT NOT NULL,
-  `mediaAluno` varchar(50) DEFAULT NULL,
+  `media_aluno` varchar(50) DEFAULT NULL,
   FOREIGN key (id_aluno) REFERENCES aluno(id_aluno) on delete CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

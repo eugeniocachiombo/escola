@@ -3,26 +3,11 @@
 <?php include '../_inc/header.php';?>
 <?php include '../../config/db/connection.php';?>
 <?php include '../../dao/pauta_dao.php';?>
+<?php include '../../dao/media_dao.php';?>
 <title>Pauta</title>
 
 <main>
-	<center>
-		<a href="Vermelhor.php" style="background: green; color: white;">Ver Melhor Classificação</a>
-	</center> <br>
-
-	<center>
-		<a href="Reprovados.php" style="background: green; color: white;">Reprovados </a>
-	</center> <br>
-
-	<center>
-		<a href="Página Inicial.php" style="background: green; color: white;">
-			Página Inicial
-		</a>
-	</center><br>
-
-	<h1> </h1>
-
-	<div class="table-responsive">
+	<div class="table-responsive mt-5">
 	<caption><h1 class="text-center">Pauta de Resultados</h1></caption>
 		<table border="1" align="center">
 			<tr>
@@ -50,6 +35,8 @@
 								if($init_cont == 0){ 
 									echo "<td>" . $value["nome_aluno"] . "</td>";
 									$nota_value = $pauta_dao->GetNota($value["id_aluno"]);
+									$media_dao = new MediaDao();
+									$media_value = $media_dao->GetMediaId($value["id_aluno"]);
 
 									foreach ($nota_value as $value) {
 
@@ -63,6 +50,15 @@
 											echo "<td class='text-danger'>" . substr($value["nota"], 0, 3) . "</td> ";  
 										}
 									} 
+
+									
+
+									if($media_value["media_aluno"] >= 9.5){
+										echo "<td class='text-success'> Aprovado </td> ";  
+									} else {
+										echo "<td class='text-danger'> Reprovado </td> ";
+									}
+
 								 } 
 							?>
 						</tr> 

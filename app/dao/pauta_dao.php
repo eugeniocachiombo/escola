@@ -1,7 +1,6 @@
 <?php
 
-class PautaDao 
-{
+class PautaDao {
     function GetAll(){
         $con = GetConnection();
         $sql_disc = "select * from pauta 
