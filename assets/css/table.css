@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+    text-align: center;
+}
+
+
+th {
+    background: #056a9a;
+    color: white;
+    min-width: 150px;
+    border: 1px solid;
+}
+
+td{
+
+    border: 1px solid;
+
+}
+
+.table-responsive{
+    border: 1px solid;
+}

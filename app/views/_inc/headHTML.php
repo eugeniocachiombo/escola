@@ -15,6 +15,7 @@ session_start();
   <link rel="stylesheet" href="../../../assets/css/main.css">
   <link rel="stylesheet" href="../../../assets/css/menu.css">
   <link rel="stylesheet" href="../../../assets/css/off_canvas.css">
+  <link rel="stylesheet" href="../../../assets/css/table.css">
   <script src="../../../assets/jquery/jquery.js"></script>
   <script src="../../../assets/js/sweet_alert.js"></script>
   <script src="../../../assets/bootstrap 5.0.2/js/bootstrap.js"></script>
