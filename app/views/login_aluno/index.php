@@ -62,8 +62,6 @@
         ?>
     <center>
         <form method="POST">
-                     
-
                     <div class="d-table w-50">
                         <div>
                             <h1 class="text-start" style="text-decoration: underline">Login</h1> <hr>
