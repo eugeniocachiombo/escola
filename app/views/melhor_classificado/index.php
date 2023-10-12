@@ -25,7 +25,7 @@
 					echo "<tr> 
 					<td>" . $value["nome_aluno"] . "</td> 
 					<td>" . $value["media_aluno"] . "</td> 
-					<td class='text-success'>" . $cont . "º</td> 
+					<td class='text-primary'>" . $cont . "º</td> 
 					</tr>";
 					$cont++;
 				}
