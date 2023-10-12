@@ -14,9 +14,15 @@ if ( isset( $_POST[ 'cadastrar' ] ) ) {
         echo "<p align= 'center' style= 'background: red' > Existe campo vazio </p>";
 
     } else {
-        $person = new Pessoa(0, $nome, $email, $idade, $genero, $morada);
+        $pessoa = new Pessoa();
+        $pessoa->SetId(0);
+        $pessoa->SetNome($nome);
+        $pessoa->SetEmail($email);
+        $pessoa->SetIdade($idade);
+        $pessoa->SetGenero($genero);
+        $pessoa->SetMorada($morada);
         $aluno_dao = new AlunoDao();
-        $result = $aluno_dao->Create($person);
+        $result = $aluno_dao->Create($pessoa);
 
         if ( $result ) {
             echo "<p align= 'center' style= 'background: green' > Cadastrado com sucesso </p>";

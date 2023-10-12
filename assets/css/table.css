@@ -18,7 +18,6 @@ td{
 }
 
 .table-responsive{
-    border: 1px solid;
     overflow: auto;
-    min-height: 50vh;
+    min-height: auto;
 }

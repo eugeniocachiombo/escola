@@ -8,22 +8,13 @@ class Pessoa {
     private $senha;
     private $idade;
     private $genero;
-	private $morada;
-	
-	function __construct($id, $nome, $email, $idade, $genero, $morada) {
-        $this->id = $id;
-        $this->nome = $nome;
-        $this->email = $email;
-        $this->idade = $idade;
-        $this->genero = $genero;
-        $this->morada = $morada;
-    }
-
+    private $morada;
+    
     public function GetId() {
         return $this->id;
     }
 
-    public function SetId( int $id ) {
+    public function SetId( $id ) {
         $this->id = $id;
     }
 
@@ -31,7 +22,7 @@ class Pessoa {
         return $this->nome;
     }
 
-    public function SetNome( String $nome ) {
+    public function SetNome(  $nome ) {
         $this->nome = $nome;
     }
 
@@ -39,7 +30,7 @@ class Pessoa {
         return $this->senha;
     }
 
-    public function SetSenha( String $senha ) {
+    public function SetSenha(  $senha ) {
         $this->senha = $senha;
     }
 
@@ -47,7 +38,7 @@ class Pessoa {
         return $this->email;
     }
 
-    public function SetEmail( String $email ) {
+    public function SetEmail(  $email ) {
         $this->email = $email;
     }
 
@@ -55,7 +46,7 @@ class Pessoa {
         return $this->idade;
     }
 
-    public function SetIdade( int $idade ) {
+    public function SetIdade(  $idade ) {
         $this->idade = $idade;
     }
 
@@ -63,7 +54,7 @@ class Pessoa {
         return $this->genero;
     }
 
-    public function SetGenero( String $genero ) {
+    public function SetGenero(  $genero ) {
         $this->genero = $genero;
     }
 
@@ -71,7 +62,7 @@ class Pessoa {
         return $this->morada;
     }
 
-    public function SetMorada( String $morada ) {
+    public function SetMorada(  $morada ) {
         $this->morada = $morada;
     }
 }

@@ -13,6 +13,7 @@ if ( isset( $_POST[ 'iniciar_sessao' ] ) ) {
         if ( $dates_aluno ) {
 
             $_SESSION[ 'id' ] = $dates_aluno[ 'id_aluno' ];
+            $_SESSION[ 'nome' ] = $dates_aluno[ 'nome_aluno' ];
             $_SESSION[ 'email' ] = $dates_aluno[ 'email_aluno' ];
             $_SESSION[ 'senha' ] = $dates_aluno[ 'senha_aluno' ];
             $_SESSION[ 'idade' ] = $dates_aluno[ 'idade_aluno' ];
@@ -21,7 +22,7 @@ if ( isset( $_POST[ 'iniciar_sessao' ] ) ) {
             echo "<p align= 'center' style= 'background: green; color: white'> Encontrado</p>";
             ?>
                 <script>
-                   // window.location = '../Prova/FaceProva.php';
+                   window.location = '../prova/index.php';
                 </script>
             <?php
 
