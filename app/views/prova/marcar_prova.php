@@ -118,7 +118,7 @@
 						}
 
 						echo "<p align= 'center'>  ".$_SESSION["prof"] ." " .$professor->GetNome()."</p>";
-						echo "<a href='MarcarProva.php' style='color:white; text-align: center'> Limpar </a>";
+						echo "<a href='marcar_prova.php' style='color:white; text-align: center'> Limpar </a>";
 
 						$sql = "insert into marcar_prova (id_aluno, id_disc, id_prof) values(?, ?, ?)";
 

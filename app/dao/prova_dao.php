@@ -53,9 +53,7 @@ class ProvaDao
             <th>Recurso</th>
             </tr>
 
-            <?php	foreach ( $result as $value ) {
-
-                ?>
+            <?php	foreach ( $result as $value ) { ?>
                 <tr align = 'center' bgcolor = '#004c14'>
                 <td><?php echo $value[ 'disciplina' ] ?> </td>
 
@@ -99,6 +97,29 @@ class ProvaDao
 
         }
 
+    }
+
+    function MakeTest($prova) {
+        if ( $prova->GetAceite() == true ) {
+            
+            echo '<legend><h4> Prova autorizada </h4> </legend>';
+            echo '<h5> Prova a decorrer . . . </h5> </br>';
+            echo '<label>Aluno/a '.$prova->GetAluno()->GetNome().' está em prova </label><br>';
+            echo '<label>Fazendo prova de ***'.$prova->GetDisciplina()->GetNomeDisciplina().'***</label><br>';
+            $genero = $prova->GetDisciplina()->GetProfessor()->GetGenero();
+            if ( $genero != 'M' ) {
+                echo '<label> Disciplina da professora: ';
+            } else {
+                echo '<label> Disciplina do professor: ';
+            }
+            echo $prova->GetDisciplina()->GetProfessor()->GetNome().'</label>';
+            echo '<br> Data: '.$prova->GetData();
+
+        } else {
+            echo '<fieldSet>';
+            echo 'Não foi marcada nenhuma prova';
+            echo '</fieldSet>';
+        }
     }
 
     function media() {
@@ -241,25 +262,5 @@ class ProvaDao
         }
     }
 
-    function fazerProva() {
-        if ( $prova->GetAceite() == true ) {
-
-            echo '<fieldSet>';
-
-            echo '<legend><h4> Prova autorizada </h4> </legend>';
-            echo '<h5> Prova a decorrer . . . </h5> </br>';
-            echo '<label>Aluno/a '.$prova->GetAluno()->GetNome().' está em prova </label><br>';
-            echo '<label>Fazendo prova de ***'.$prova->disciplina->GetNomeDisciplina().'***</label><br>';
-            echo '<label> Disciplina do/a professor/a: ';
-            echo $prova->disciplina->nomeProf().'</label>';
-            echo '<br> Data: '.$prova->data;
-            //	echo '<br> Nota: '.$prova->GetNota().'v';
-            echo '</fieldSet>';
-
-        } else {
-            echo '<fieldSet>';
-            echo 'Não foi marcada nenhuma prova';
-            echo '</fieldSet>';
-        }
-    }
+    
 }

@@ -11,10 +11,15 @@
 <?php include '../../dao/prof_dao.php';?>
 <title>Opções de Provas</title>
 
+<main class="d-flex align-items-center">
+	<div class="container">
+		<form method="POST">
+			<h1>Opções de Prova</h1>
+			<input class="form-control" type="submit" name="resultado" value="Resultado">
+		</form>
 
-<main>
-	<div class="table-responsive mt-5">
-		<?php
+		<div class="table-responsive mt-5">
+			<?php
 			if (isset($_POST["resultado"])) {
 				
 				$professor = new Professor();
@@ -30,14 +35,11 @@
 				$prova->SetAceite(true);
 				$prova_dao->Result($prova);
 
-				echo "<br><a href= 'FaceProva.php' style= 'color: white' > Limpar Registro </a><br> <br>";
+				echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
 			}
-		?>
+			?>
+		</div>
 	</div>
-	<form method="POST">
-			<h1>Opções de Prova</h1> 
-			<input type="submit" name="resultado" value="Resultado">
-	</form>
 </main>
 
 <?php
