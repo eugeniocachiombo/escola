@@ -10,11 +10,19 @@ class Disciplina {
         $this->professor = $professor;
     }
 
-    public function GetNome_Disciplina() {
+    public function GetId() {
+        return $this->id;
+    }
+
+    public function SetId( $id ) {
+        $this->id = $id;
+    }
+
+    public function GetNomeDisciplina() {
         return $this->nome_disciplina;
     }
 
-    public function SetNome_Disciplina( String $nome_disciplina ) {
+    public function SetNomeDisciplina( $nome_disciplina ) {
         $this->nome_disciplina = $nome_disciplina;
     }
 
@@ -22,11 +30,7 @@ class Disciplina {
         return $this->professor;
     }
 
-    public function SetProfessor( Professor $professor ) {
+    public function SetProfessor(  $professor ) {
         $this->professor = $professor;
-    }
-
-    function NameTeacher() {
-        echo $this->professor->GetNome();
     }
 }

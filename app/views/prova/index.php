@@ -47,6 +47,5 @@
 	}
 ?>
 
-
 <?php include '../_inc/footer.php';?>
 <?php include '../_inc/footHTML.php';?>

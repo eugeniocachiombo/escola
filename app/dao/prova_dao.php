@@ -2,29 +2,22 @@
 
 class ProvaDao
 {
-    function marcarProva() {
-        if ( $prova->GetAluno()->GetMatricula() == true ) {
+    function AgendTest($prova) {
+
+        if ( $prova->GetAluno()->GetRegisted() == true ) {
           
             $genero = $prova->GetAluno()->GetGenero();
-            $aluno;
-
-            if ( $genero != 'Masculino' ) {
-
-                $_SESSION[ 'aluno' ] = 'a alunona';
-
+            
+            if ( $genero != 'M' ) {
+                $_SESSION[ 'aluno' ] = 'a aluna';
             } else {
-
                 $_SESSION[ 'aluno' ] = 'o aluno';
-
             }
 
             $prova->SetAceite( true );
-            $prova->GetAluno()->GetNome();
-            $prova->disciplina->GetProfessor();
+            $prova->SetData( date( 'd-m-Y' ) );
 
-            $prova->data = date( 'd-m-y' );
-
-            echo "<p align= 'center'> Prova marcada, para data de: ".$prova->GetData().' com '.$_SESSION[ 'aluno' ].' '.$prova->GetAluno()->GetNome().' disciplina: '.$prova->disciplina->GetNomeDisciplina().'</p>';
+            echo "<p align= 'center'> Prova marcada, para data de: ".$prova->GetData().' com '.$_SESSION[ 'aluno' ] .' '.$prova->GetAluno()->GetNome().' disciplina: '.$prova->GetDisciplina()->GetNomeDisciplina().'</p>';
 
         } else {
 
