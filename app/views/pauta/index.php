@@ -23,6 +23,7 @@
 						$end_cont++;
 					}
 				?>
+				<th> Média Final </th>
 				<th> Obs. </th>
 			</tr>
 
@@ -53,8 +54,10 @@
 									
 
 									if($media_value["media_aluno"] >= 9.5){
+										echo "<td class='text-success'> ".intval($media_value["media_aluno"])." </td> ";  
 										echo "<td class='text-success'> Aprovado </td> ";  
 									} else {
+										echo "<td class='text-danger'> ".intval($media_value["media_aluno"])." </td> ";
 										echo "<td class='text-danger'> Reprovado </td> ";
 									}
 
