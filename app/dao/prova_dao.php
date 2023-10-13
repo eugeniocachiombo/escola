@@ -182,32 +182,43 @@ class ProvaDao
             ?>
             <td bgcolor = '#004c14' align = 'center'><?php echo "<label style='color: #24fe00'> ".$nota.'v </label>' ?></td>
 
-            <td><?php
+            <td>
+                <?php
+                    $prova->SetNota( $nota );
+                    $prova_dao = new ProvaDao();
+                    $prova_dao->PassedMedia($prova);
 
-            $prova->SetNota( $nota );
-            $prova_dao = new ProvaDao();
-            $prova_dao->PassedMedia($prova);
+                    $notaFinal =  $prova->GetNota();
+                    
+                    $con = GetConnection();
+                    $sql = 'select id_media from media where id_aluno = ?';
+                    $stmt = $con->prepare( $sql );
+                    $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
+                    $stmt->execute();
+                    $id_media = $stmt->fetch();
 
-            $notaFinal =  $prova->GetNota();
-
-            $con = GetConnection();
-            $sql = 'insert into media ( id_aluno, media_aluno) values( ?, ?)';
-            $stmt = $con->prepare( $sql );
-            $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
-            $stmt->bindValue( 2, intval( $notaFinal ) );
-            $stmt->execute();
-
-            /*$sql45 = "Update media 
-            Set nome_aluno = ?, 
-            media_aluno=? where id_media = ?";
-            $con45 = GetConnection();
-            $stmt45 = $con45->prepare( $sql45 );
-            $stmt45->bindValue( 1, $prova->GetAluno()->GetNome() );
-            $stmt45->bindValue( 2, $prova->GetNota() );
-            $stmt45->bindValue( 3, $prova->GetAluno()->GetId() );
-            $stmt45->execute();*/
-
-            ?></td>
+                    if(empty($id_media)){
+                        $con = GetConnection();
+                        $sql = 'insert into media ( id_aluno, media_aluno) values( ?, ?)';
+                        $stmt = $con->prepare( $sql );
+                        $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
+                        $stmt->bindValue( 2, intval( $notaFinal ) );
+                        $stmt->execute();
+                    } else if(!empty($id_media)){
+                        $sql = "update media 
+                        set id_aluno = ?, 
+                        media_aluno=? 
+                        where id_media = ?";
+                        $con = GetConnection();
+                        $stmt = $con->prepare( $sql );
+                        $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
+                        $stmt->bindValue( 2, $prova->GetNota() );
+                        $stmt->bindValue( 3, $id_media["id_media"] );
+                        $stmt->execute();
+                    }
+                    
+                ?>
+            </td>
             </tr>
             </table>
 

@@ -50,7 +50,6 @@
 											echo "<td class='text-danger'>" . substr($value["nota"], 0, 3) . "</td> ";  
 										}
 									} 
-
 									
 
 									if($media_value["media_aluno"] >= 9.5){
