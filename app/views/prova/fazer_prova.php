@@ -91,7 +91,12 @@
 	<div class="pt-3">
 		<?php
 			if ($cont == 0) {
-				echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pelo aluno/a ".$aluno->GetNome()."</p>";	
+				$genero = $prova->GetAluno()->GetGenero();
+				if ( $genero != 'M' ) {
+					echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pela aluna ".$aluno->GetNome()."</p>";	
+				} else {
+					echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pelo aluno ".$aluno->GetNome()."</p>";
+				}	
 			} elseif(isset($_POST["comecar"])){
 
 					$sql = "select * from disciplina where id_disc = ?";

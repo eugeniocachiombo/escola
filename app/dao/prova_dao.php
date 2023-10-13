@@ -104,8 +104,15 @@ class ProvaDao
             
             echo '<legend><h4> Prova autorizada </h4> </legend>';
             echo '<h5> Prova a decorrer . . . </h5> </br>';
-            echo '<label>Aluno/a '.$prova->GetAluno()->GetNome().' está em prova </label><br>';
+
+            $genero = $prova->GetAluno()->GetGenero();
+            if ( $genero != 'M' ) {
+                echo '<label>Aluna '.$prova->GetAluno()->GetNome().' está em prova </label><br>';
+            } else {
+                echo '<label>Aluno '.$prova->GetAluno()->GetNome().' está em prova </label><br>';
+            }
             echo '<label>Fazendo prova de ***'.$prova->GetDisciplina()->GetNomeDisciplina().'***</label><br>';
+            
             $genero = $prova->GetDisciplina()->GetProfessor()->GetGenero();
             if ( $genero != 'M' ) {
                 echo '<label> Disciplina da professora: ';
