@@ -20,34 +20,31 @@
 
 		<div class="table-responsive mt-5">
 			<?php
-			if (isset($_POST["resultado"])) {
-				
-				$professor = new Professor();
-				$disciplina = new Disciplina($professor);
+				if (isset($_POST["resultado"])) {
+					
+					$professor = new Professor();
+					$disciplina = new Disciplina($professor);
 
-				$aluno = new Aluno();
-				$aluno->SetId($_SESSION["id"]);
-				$aluno->SetNome($_SESSION["nome"]);
+					$aluno = new Aluno();
+					$aluno->SetId($_SESSION["id"]);
+					$aluno->SetNome($_SESSION["nome"]);
+					$aluno->SetEmail($_SESSION["email"]);
+					$aluno->SetIdade($_SESSION["idade"]);
+					$aluno->SetGenero($_SESSION["genero"]);
+					$aluno->SetMorada($_SESSION["morada"]);
 
-				$prova = new Prova($aluno, $disciplina);
-				$prova_dao = new ProvaDao();
+					$prova = new Prova($aluno, $disciplina);
+					$prova_dao = new ProvaDao();
 
-				$prova->SetAceite(true);
-				$prova_dao->Result($prova);
+					$prova->SetAceite(true);
+					$prova_dao->Result($prova);
 
-				echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
-			}
+					echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
+				}
 			?>
 		</div>
 	</div>
 </main>
-
-<?php
-	if (isset($_POST["terminar"])) {
-		session_destroy();
-		header("location:../Inicio/Login.php");
-	}
-?>
 
 <?php include '../_inc/footer.php';?>
 <?php include '../_inc/footHTML.php';?>

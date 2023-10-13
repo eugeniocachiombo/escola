@@ -32,13 +32,13 @@ class ProvaDao
 
         if ( $prova->GetAceite() == true ) {
 
+            $prova_dao = new ProvaDao();
             $prova->GetAluno()->SetRegisted( true );
 
             $con = GetConnection();
-
-            $sql = 'select * from pauta where nomeAluno = ?';
+            $sql = 'select * from pauta where id_aluno = ?';
             $stmt = $con->prepare( $sql );
-            $stmt->bindValue( 1, $prova->GetAluno()->GetNome() );
+            $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
             $stmt->execute();
             $result = $stmt->fetchAll();
             $cont = 0;
@@ -55,46 +55,53 @@ class ProvaDao
 
             <?php	foreach ( $result as $value ) { ?>
                 <tr align = 'center' bgcolor = '#004c14'>
-                <td><?php echo $value[ 'disciplina' ] ?> </td>
+                    
+                    <?php
+						$sql = "select * from disciplina where id_disc = ?";
+						$stmt = $con->prepare($sql);
+						$stmt->bindValue(1, $value["id_disc"]);
+						$stmt->execute();
+						$result = $stmt->fetch(); ?>
+                    <td><?php echo $result[ 'nome_disc' ] ?> </td>
 
-                <td><?php echo intval( $value[ 'nota' ] ) ?> </td>
+                    <td><?php echo intval( $value[ 'nota' ] ) ?> </td>
 
-                <td><?php $prova->SetNota( $value[ 'nota' ] );
-                $prova->aprovar();
-                ?> </td>
+                    <td>
+                        <?php 
+                            $prova->SetNota( $value[ 'nota' ] );
+                            $prova_dao->Passed($prova);
+                        ?> 
+                    </td>
 
-                <form method = 'POST' action = 'Recurso.php'>
-                <input type = 'hidden' name = 'nomeAluno' value = "<?php echo $_SESSION['nome'] ?>">
-                <input type = 'hidden' name = 'disciplina' value = "<?php echo $value['disciplina'] ?>">
-                <input type = 'hidden' name = 'idPauta' value = "<?php echo $value['idPauta'] ?>">
-                <input type = 'hidden' name = 'nota' value = "<?php echo $value['nota'] ?>">
-                <td> <input type = 'submit' name = 'recurso' value = 'Fazer Recurso'> </td>
-                </form>
+                    <form method = 'POST' action = 'Recurso.php'>
+                        <input type = 'hidden' name = 'nome_aluno' value = "<?php echo $_SESSION['nome'] ?>">
+                        <input type = 'hidden' name = 'disciplina' value = "<?php echo $value['disciplina'] ?>">
+                        <input type = 'hidden' name = 'idPauta' value = "<?php echo $value['idPauta'] ?>">
+                        <input type = 'hidden' name = 'nota' value = "<?php echo $value['nota'] ?>">
+                        <td> <input type = 'submit' name = 'recurso' value = 'Fazer Recurso'> </td>
+                    </form>
+                </tr>
                 <?php
-                $cont = $cont + 1;
-
+                $cont++;
             }
-
             ?>
-
-            </tr>
-
+            
             </table>
 
             <?php
             if ( $cont == 0 ) {
-
-                echo "<p style='color:white; background: blue' align='center'> Ainda não há notas lançadas do aluno/a ".$prova->GetAluno()->GetNome().'</p>';
+                $genero = $prova->GetAluno()->GetGenero();
+				if ( $genero != 'M' ) {
+					echo "<p style='color:white; background: blue' align='center'> Ainda não há notas lançadas da aluna ".$prova->GetAluno()->GetNome().'</p>';
+				} else {
+					echo "<p style='color:white; background: blue' align='center'> Ainda não há notas lançadas do aluno ".$prova->GetAluno()->GetNome().'</p>';
+				}
             } else {
-                $prova->media();
+                $prova_dao->Media($prova);
             }
 
         } else {
-
-            echo '<fieldSet>';
             echo 'Impossível ver os resultados, não foi feito nenhuma prova';
-            echo '</fieldSet>';
-
         }
 
     }
@@ -129,7 +136,7 @@ class ProvaDao
         }
     }
 
-    function media() {
+    function Media($prova) {
 
         if ( $prova->GetAceite() == true ) {
 
@@ -137,10 +144,10 @@ class ProvaDao
 
             $con = GetConnection();
 
-            $sql = 'select sum(nota), sum(cont)  from pauta where nomeAluno = ?';
+            $sql = 'select sum(nota), count(*) from pauta where id_aluno = ?';
 
             $stmt = $con->prepare( $sql );
-            $stmt->bindValue( 1, $prova->GetAluno()->GetNome() );
+            $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
             $stmt->execute();
             $result = $stmt->fetchAll();
 
@@ -156,38 +163,36 @@ class ProvaDao
 
                 <?php
 
-                $nota = ( $value[ 'sum(nota)' ] )/( $value[ 'sum(cont)' ] );
-
-                $nota1 = number_format( $nota, 2 );
+                $nota = ( $value[ 'sum(nota)' ] )/( $value[ 'count(*)' ] );
+                $nota = number_format( $nota, 2 );
             }
             ?>
-            <td bgcolor = '#004c14' align = 'center'><?php echo "<label style='color: #24fe00'> ".$nota1.'v </label>' ?></td>
+            <td bgcolor = '#004c14' align = 'center'><?php echo "<label style='color: #24fe00'> ".$nota.'v </label>' ?></td>
 
             <td><?php
 
-            $prova->SetNota( $nota1 );
-            $prova->aprovarMedia();
+            $prova->SetNota( $nota );
+            $prova_dao = new ProvaDao();
+            $prova_dao->PassedMedia($prova);
 
             $notaFinal =  $prova->GetNota();
 
-            $sql44 = 'insert into media (idMedia, nomeAluno, mediaAluno) values(?, ?, ?)';
-            $con44 = GetConnection();
-            $stmt44 = $con44->prepare( $sql44 );
-            $stmt44->bindValue( 1, $prova->GetAluno()->GetId() );
-            $stmt44->bindValue( 2, $prova->GetAluno()->GetNome() );
-            $stmt44->bindValue( 3, intval( $notaFinal ) );
+            $con = GetConnection();
+            $sql = 'insert into media ( id_aluno, media_aluno) values( ?, ?)';
+            $stmt = $con->prepare( $sql );
+            $stmt->bindValue( 1, $prova->GetAluno()->GetId() );
+            $stmt->bindValue( 2, intval( $notaFinal ) );
+            $stmt->execute();
 
-            $stmt44->execute();
-
-            $sql45 = "Update media 
-		Set nomeAluno = ?, 
-		mediaAluno=? where idMedia = ?";
+            /*$sql45 = "Update media 
+            Set nome_aluno = ?, 
+            media_aluno=? where id_media = ?";
             $con45 = GetConnection();
             $stmt45 = $con45->prepare( $sql45 );
             $stmt45->bindValue( 1, $prova->GetAluno()->GetNome() );
             $stmt45->bindValue( 2, $prova->GetNota() );
             $stmt45->bindValue( 3, $prova->GetAluno()->GetId() );
-            $stmt45->execute();
+            $stmt45->execute();*/
 
             ?></td>
             </tr>
@@ -197,77 +202,55 @@ class ProvaDao
 
         } else {
 
-            echo '<fieldSet>';
             echo 'Impossível ver os resultados, não foi feito nenhuma prova';
-            echo '</fieldSet>';
 
         }
 
     }
 
-    function aprovar() {
+    function Passed($prova) {
 
-        if ( $prova->GetAluno()->GetMatricula() == true ) {
+        if ( $prova->GetAluno()->GetRegisted() == true ) {
 
             if ( $prova->GetAceite() == true && $prova->GetNota() >= 14 ) {
 
-                echo '<fieldSet>';
-
                 echo "<label style='color: #24fe00'> Dispensado </label>";
 
-                echo '</fieldSet>';
-
             } elseif ( $prova->GetNota() >= 10 ) {
-                echo '<fieldSet>';
 
                 echo "<label style='color: #00d7fe'> Aprovado </label>";
-                echo '</fieldSet>';
 
             } elseif ( $prova->GetNota() >= 7 ) {
-                echo '<fieldSet>';
 
                 echo "<label style='color: #ff8585'> Melhoria de notas </label>";
-                echo '</fieldSet>';
 
             } else {
-                echo '<fieldSet>';
 
                 echo "<label style='color: #fd6652'> Reprovado </label>";
-                echo '</fieldSet>';
 
             }
 
         } else {
-            echo '<fieldSet>';
 
             echo 'Precisa de ter provas feitas';
-            echo '</fieldSet>';
 
         }
     }
 
-    function aprovarMedia() {
+    function PassedMedia($prova) {
 
-        if ( $prova->GetAluno()->GetMatricula() == true ) {
+        if ( $prova->GetAluno()->GetRegisted() == true ) {
 
             if ( $prova->GetAceite() == true && $prova->GetNota() >= 9.5 ) {
 
-                echo '<fieldSet>';
-
                 echo "<label style='color: #24fe00'> Aprovado </label>";
 
-                echo '</fieldSet>';
-
             } else {
-                echo '<fieldSet>';
 
                 echo "<label style='color: #fd6652'> Reprovado </label>";
-                echo '</fieldSet>';
 
             }
 
         }
     }
-
-    
 }
