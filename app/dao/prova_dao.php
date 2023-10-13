@@ -86,11 +86,12 @@ class ProvaDao
                     </td>
 
                     <form method = 'POST' action = 'recurso.php'>
-                        <input type = 'hidden' name = 'nome_aluno' value = "<?php echo $_SESSION['nome'] ?>">
-                        <input type = 'hidden' name = 'disciplina' value = "<?php echo $value['disciplina'] ?>">
-                        <input type = 'hidden' name = 'idPauta' value = "<?php echo $value['idPauta'] ?>">
+                        <input type = 'hidden' name = 'id_aluno' value = "<?php echo $_SESSION['id'] ?>">
+                        <input type = 'hidden' name = 'id_disc' value = "<?php echo $value['id_disc'] ?>">
+                        <input type = 'hidden' name = 'nome_disc' value = "<?php echo $result[ 'nome_disc' ] ?>">
+                        <input type = 'hidden' name = 'id_pauta' value = "<?php echo $value['id_pauta'] ?>">
                         <input type = 'hidden' name = 'nota' value = "<?php echo $value['nota'] ?>">
-                        <td> <input class="form-control" type = 'submit' name = 'recurso' value = 'Fazer Recurso'> </td>
+                        <td> <input class="form-control" type = 'submit' name = 'recurso' value = 'Fazer Melhoria/Recurso'> </td>
                     </form>
                 </tr>
                 <?php
