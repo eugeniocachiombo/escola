@@ -64,7 +64,19 @@ class ProvaDao
 						$result = $stmt->fetch(); ?>
                     <td><?php echo $result[ 'nome_disc' ] ?> </td>
 
-                    <td><?php echo intval( $value[ 'nota' ] ) ?> </td>
+                    <td>
+                        <?php 
+                                if ( $value[ 'nota' ] >= 9.5 ) {
+
+                                    echo "<label style='color: green'>" . intval( $value[ 'nota' ] ) . "</label>";
+
+                                } else {
+
+                                    echo "<label style='color: #fd6652'> " . intval( $value[ 'nota' ] ) . " </label>";
+
+                                }
+                        ?>
+                    </td>
 
                     <td>
                         <?php 
@@ -73,12 +85,12 @@ class ProvaDao
                         ?> 
                     </td>
 
-                    <form method = 'POST' action = 'Recurso.php'>
+                    <form method = 'POST' action = 'recurso.php'>
                         <input type = 'hidden' name = 'nome_aluno' value = "<?php echo $_SESSION['nome'] ?>">
                         <input type = 'hidden' name = 'disciplina' value = "<?php echo $value['disciplina'] ?>">
                         <input type = 'hidden' name = 'idPauta' value = "<?php echo $value['idPauta'] ?>">
                         <input type = 'hidden' name = 'nota' value = "<?php echo $value['nota'] ?>">
-                        <td> <input type = 'submit' name = 'recurso' value = 'Fazer Recurso'> </td>
+                        <td> <input class="form-control" type = 'submit' name = 'recurso' value = 'Fazer Recurso'> </td>
                     </form>
                 </tr>
                 <?php

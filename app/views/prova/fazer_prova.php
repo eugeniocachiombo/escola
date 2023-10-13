@@ -155,6 +155,12 @@
 					} else{
 						echo "<h2> <p align= 'center' style= 'background: red; color: white' >  A prova de ".$disciplina->GetNomeDisciplina()." já foi feita   </p> </h2>";
 						echo "<a href='fazer_prova.php' style='color:white; text-align: center'> Limpar </a>";
+						$id = $_POST["id_marcar_prova"];
+						$sql = "delete from marcar_prova 
+						where id_marcar_prova = ?";
+						$stmt = $con->prepare($sql);
+						$stmt->bindValue(1, $id);
+						$stmt->execute();
 					}		
 				}
 			?>
