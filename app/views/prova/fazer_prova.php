@@ -38,8 +38,7 @@
 		$result = $marcar_prova_dao->GetWithAluno($aluno->GetId()); 
 		$cont = 0; ?>
 
-		<h1>Provas Marcadas</h1>
-		<hr>
+		<h1>Provas Marcadas</h1> <hr>
 		<div class="table-responsive">
 			<table>
 				<tr>
@@ -51,96 +50,97 @@
 
 				<tr>
 					<?php
-					foreach ($result as $value) {?>
+						foreach ($result as $value) {
 
-					<td> <?php echo $aluno->GetNome(); ?></td>
+							echo "<td>" . $aluno->GetNome() . "</td>";
 
-					<?php
 							$disciplina_dao = new DisciplinaDao();
-							$result = $disciplina_dao->GetWithId($value["id_disc"]); 
-						?>
-					<td> <?php echo $result["nome_disc"] ?></td>
-
-					<?php
+							$result = $disciplina_dao->GetWithId($value["id_disc"]);
+							echo "<td>" . $result["nome_disc"] . "</td>"; 
+							
 							$professor_dao = new ProfessorDao();
-							$result = $professor_dao->GetWithId( $value["id_prof"] ); 
-						?>
-					<td> <?php echo $result["nome_prof"] ?> </td>
+							$result = $professor_dao->GetWithId( $value["id_prof"] );
+							echo "<td>" . $result["nome_prof"] . "</td>"; 
 
-					<td>
-						<form method="POST" action="fazer_prova.php">
-							<input type="hidden" name="id_disc" value="<?php echo $value["id_disc"] ?>">
-							<input type="hidden" name="id_aluno" value="<?php echo $value["id_aluno"] ?> ">
-							<input type="hidden" name="id_prof" value="<?php echo $value["id_prof"] ?>">
-							<input type="hidden" name="id_marcar_prova" value="<?php echo $value["id_marcar_prova"] ?>">
-							<input class="form-control" type="submit" name="comecar" value="Começar"> </a>
-						</form>
-						<?php	$cont++; ?>
-					</td>
+							echo "<td>"; ?>
+								<form method="POST" action="fazer_prova.php">
+									<input type="hidden" name="id_disc" value="<?php echo $value["id_disc"] ?>">
+									<input type="hidden" name="id_aluno" value="<?php echo $value["id_aluno"] ?> ">
+									<input type="hidden" name="id_prof" value="<?php echo $value["id_prof"] ?>">
+									<input type="hidden" name="id_marcar_prova" value="<?php echo $value["id_marcar_prova"] ?>">
+									<input class="form-control" type="submit" name="comecar" value="Começar"> </a>
+								</form>
+								<?php	
+								$cont++;
+							echo "<td>";
+						}
+					?>
 				</tr>
-				<?php	} ?>
 			</table>
 		</div>
 
 		<div class="pt-3">
 			<?php
-			if ($cont == 0) {
-				$genero = $prova->GetAluno()->GetGenero();
-				if ( $genero != 'M' ) {
-					echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pela aluna ".$aluno->GetNome()."</p>";	
-				} else {
-					echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pelo aluno ".$aluno->GetNome()."</p>";
-				}	
-			} else if(isset($_POST["comecar"])){
+				if ($cont == 0) {
 
-					$disciplina_dao = new DisciplinaDao();
-					$result = $disciplina_dao->GetWithId($_POST["id_disc"]);
+					$genero = $prova->GetAluno()->GetGenero();
 
-					$disciplina->SetId($result["id_disc"]);
-					$disciplina->SetNomeDisciplina($result["nome_disc"]);
+					if ( $genero != 'M' ) {
+						echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pela aluna ".$aluno->GetNome()."</p>";	
+					} else {
+						echo "<p style='color:white; background: blue' align='center'> Ainda não temos informações de provas marcadas pelo aluno ".$aluno->GetNome()."</p>";
+					}	
 
-					$professor_dao = new ProfessorDao();
-					$result = $professor_dao->GetWithId( $_POST["id_prof"] ); 
+				} else if(isset($_POST["comecar"])){
 
-					$professor->SetId($result["id_prof"]);
-					$professor->SetNome($result["nome_prof"]);
-					$professor->SetEmail($result["email_prof"]);
-					$professor->SetIdade($result["idade_prof"]);
-					$professor->SetGenero($result["genero_prof"]);
-					$professor->SetMorada($result["morada_prof"]);
-					
-					$nota = rand(0,20);
-					$prova->SetData(date("d-m-Y"));
-					$prova->SetAceite(true);
-					$prova->SetNota($nota);
+						$disciplina_dao = new DisciplinaDao();
+						$result = $disciplina_dao->GetWithId($_POST["id_disc"]);
 
-					$pauta_dao = new PautaDao();
-					$result = $pauta_dao->GetDiscAluno( $disciplina->GetId(), $aluno->GetId());
-			
-					if (empty($result["id_disc"]) && empty($result["id_aluno"])) {
+						$disciplina->SetId($result["id_disc"]);
+						$disciplina->SetNomeDisciplina($result["nome_disc"]);
+
+						$professor_dao = new ProfessorDao();
+						$result = $professor_dao->GetWithId( $_POST["id_prof"] ); 
+
+						$professor->SetId($result["id_prof"]);
+						$professor->SetNome($result["nome_prof"]);
+						$professor->SetEmail($result["email_prof"]);
+						$professor->SetIdade($result["idade_prof"]);
+						$professor->SetGenero($result["genero_prof"]);
+						$professor->SetMorada($result["morada_prof"]);
+						
+						$nota = rand(0,20);
+						$prova->SetData(date("d-m-Y"));
+						$prova->SetAceite(true);
+						$prova->SetNota($nota);
 
 						$pauta_dao = new PautaDao();
-						$pauta_dao->Create($aluno->GetId(),  $disciplina->GetId(), $prova->GetNota());
+						$result = $pauta_dao->GetDiscAluno( $disciplina->GetId(), $aluno->GetId());
+				
+						if (empty($result["id_disc"]) && empty($result["id_aluno"])) {
 
-						$prova_dao = new ProvaDao();
-						$prova_dao->MakeTest($prova);
+							$pauta_dao = new PautaDao();
+							$pauta_dao->Create($aluno->GetId(),  $disciplina->GetId(), $prova->GetNota());
 
-						$marcar_prova_dao = new MarcarProvaDao();
-						$marcar_prova_dao->Delete($_POST["id_marcar_prova"]);
+							$prova_dao = new ProvaDao();
+							$prova_dao->MakeTest($prova);
 
-					} else{
-						echo "<h2> <p align= 'center' style= 'background: red; color: white' >  A prova de ".$disciplina->GetNomeDisciplina()." já foi feita   </p> </h2>";
-						echo "<a href='fazer_prova.php' style='color:white; text-align: center'> Actualizars </a>";
-						$marcar_prova_dao = new MarcarProvaDao();
-						$marcar_prova_dao->Delete($_POST["id_marcar_prova"]);
-					}		
+							$marcar_prova_dao = new MarcarProvaDao();
+							$marcar_prova_dao->Delete($_POST["id_marcar_prova"]);
+
+						} else {
+
+							echo "<h2> <p align= 'center' style= 'background: red; color: white' >  A prova de ".$disciplina->GetNomeDisciplina()." já foi feita   </p> </h2>";
+							echo "<a href='fazer_prova.php' style='color:white; text-align: center'> Actualizars </a>";
+							$marcar_prova_dao = new MarcarProvaDao();
+							$marcar_prova_dao->Delete($_POST["id_marcar_prova"]);
+							
+						}		
 				}
 			?>
 		</div>
 
-		<?php 
-		} 
-	?>
+	<?php } ?>
 	</div>
 </main>
 
