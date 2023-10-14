@@ -1,6 +1,29 @@
 <?php
 
 class PautaDao {
+
+    function Create($id_aluno,  $id_disc, $nota){
+        $con = GetConnection();
+        $sql = "insert into pauta (id_aluno, id_disc, nota) values (?, ?, ?) ";
+		$stmt= $con->prepare($sql);
+		$stmt->bindValue(1, $id_aluno);
+		$stmt->bindValue(2, $id_disc);
+		$stmt->bindValue(3, $nota);
+		$stmt->execute();
+	}
+	
+    function GetDiscAluno( $id_disc, $id_aluno){
+		$con = GetConnection();
+        $sql = "select * from pauta 
+		where id_disc= ? and id_aluno = ?";
+		$con = GetConnection();
+		$stmt = $con->prepare($sql);
+		$stmt->bindValue(1, $id_disc);
+		$stmt->bindValue(2, $id_aluno);
+		$stmt->execute();
+		return $stmt->fetch();
+	}
+	
     function GetAll(){
         $con = GetConnection();
         $sql_disc = "select * from pauta 
