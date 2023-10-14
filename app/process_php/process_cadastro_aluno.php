@@ -18,6 +18,7 @@ if ( isset( $_POST[ 'cadastrar' ] ) ) {
         $pessoa->SetId(0);
         $pessoa->SetNome($nome);
         $pessoa->SetEmail($email);
+        $pessoa->SetSenha($password);
         $pessoa->SetIdade($idade);
         $pessoa->SetGenero($genero);
         $pessoa->SetMorada($morada);

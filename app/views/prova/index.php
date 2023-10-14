@@ -22,9 +22,6 @@
 			<?php
 				if (isset($_POST["resultado"])) {
 					
-					$professor = new Professor();
-					$disciplina = new Disciplina($professor);
-
 					$aluno = new Aluno();
 					$aluno->SetId($_SESSION["id"]);
 					$aluno->SetNome($_SESSION["nome"]);
@@ -32,7 +29,9 @@
 					$aluno->SetIdade($_SESSION["idade"]);
 					$aluno->SetGenero($_SESSION["genero"]);
 					$aluno->SetMorada($_SESSION["morada"]);
-
+					
+					$professor = new Professor();
+					$disciplina = new Disciplina($professor);
 					$prova = new Prova($aluno, $disciplina);
 					$prova_dao = new ProvaDao();
 

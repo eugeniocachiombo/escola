@@ -9,6 +9,8 @@
 <?php include '../../dao/aluno_dao.php';?>
 <?php include '../../dao/prova_dao.php';?>
 <?php include '../../dao/prof_dao.php';?>
+<?php include '../../dao/marcar_prova_dao.php';?>
+<?php include '../../dao/disciplina_dao.php';?>
 <title>Fazer prova</title>
 
 
@@ -27,19 +29,14 @@
 
 	$professor = new Professor();
 	$disciplina = new Disciplina($professor);
-
 	$prova = new Prova($aluno, $disciplina);
+	
 
 	if ($aluno->GetId()) {
 
-	$con = GetConnection();
-	$sql = "select * from marcar_prova where id_aluno = ?";
-	$stmt = $con->prepare($sql);
-	$stmt->bindValue(1, $aluno->GetId());
-	$stmt->execute();
-	$result = $stmt->fetchAll(); 
-	$cont = 0; 
-	?>
+		$marcar_prova_dao = new MarcarProvaDao();
+		$result = $marcar_prova_dao->GetWithAluno($aluno->GetId()); 
+		$cont = 0; ?>
 
 	<h1>Provas Marcadas</h1> <hr>
 	<div class="table-responsive">
@@ -55,23 +52,19 @@
 				<?php
 					foreach ($result as $value) {?>
 
-						<td><?php echo $aluno->GetNome() ?></td>
+						<td> <?php echo $aluno->GetNome(); ?></td>
 
 						<?php
-						$sql = "select * from disciplina where id_disc = ?";
-						$stmt = $con->prepare($sql);
-						$stmt->bindValue(1, $value["id_disc"]);
-						$stmt->execute();
-						$result = $stmt->fetch(); ?>
-						<td><?php echo $result["nome_disc"] ?></td>
+							$disciplina_dao = new DisciplinaDao();
+							$result = $disciplina_dao->GetWithId($value["id_disc"]); 
+						?>
+						<td> <?php echo $result["nome_disc"] ?></td>
 
 						<?php
-						$sql = "select * from professor where id_prof = ?";
-						$stmt = $con->prepare($sql);
-						$stmt->bindValue(1, $value["id_prof"]);
-						$stmt->execute();
-						$result = $stmt->fetch(); ?>
-						<td><?php echo $result["nome_prof"] ?> </td>
+							$professor_dao = new ProfessorDao();
+							$result = $professor_dao->GetWithId( $value["id_prof"] ); 
+						?>
+						<td> <?php echo $result["nome_prof"] ?> </td>
 
 						<td>
 							<form method="POST" action="fazer_prova.php">
@@ -99,25 +92,19 @@
 				}	
 			} elseif(isset($_POST["comecar"])){
 
-					$sql = "select * from disciplina where id_disc = ?";
-					$stmt = $con->prepare($sql);
-					$stmt->bindValue(1, $_POST["id_disc"]);
-					$stmt->execute();
-					$dates = $stmt->fetch();
-					$disciplina->SetId($dates["id_disc"]);
-					$disciplina->SetNomeDisciplina($dates["nome_disc"]);
+					$disciplina_dao = new DisciplinaDao();
+					$result = $disciplina_dao->GetWithId($_POST["id_disc"]); 
+					$disciplina->SetId($result["id_disc"]);
+					$disciplina->SetNomeDisciplina($result["nome_disc"]);
 
-					$sql = "select * from professor where id_prof = ?";
-					$stmt = $con->prepare($sql);
-					$stmt->bindValue(1, $_POST["id_prof"]);
-					$stmt->execute();
-					$dates = $stmt->fetch();
-					$professor->SetId($dates["id_prof"]);
-					$professor->SetNome($dates["nome_prof"]);
-					$professor->SetEmail($dates["email_prof"]);
-					$professor->SetIdade($dates["idade_prof"]);
-					$professor->SetGenero($dates["genero_prof"]);
-					$professor->SetMorada($dates["morada_prof"]);
+					$professor_dao = new ProfessorDao();
+					$result = $professor_dao->GetWithId( $_POST["id_prof"] ); 
+					$professor->SetId($result["id_prof"]);
+					$professor->SetNome($result["nome_prof"]);
+					$professor->SetEmail($result["email_prof"]);
+					$professor->SetIdade($result["idade_prof"]);
+					$professor->SetGenero($result["genero_prof"]);
+					$professor->SetMorada($result["morada_prof"]);
 					
 					$nota = rand(0,20);
 					$prova->SetData(date("d-m-y"));
