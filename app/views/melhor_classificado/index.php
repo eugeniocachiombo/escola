@@ -21,13 +21,16 @@
 				$media_dao = new MediaDao();
 				$media_value = $media_dao->GetClassification();
 				$cont = 1;
+				
 				foreach($media_value as $value){
+
 					echo "<tr> 
 					<td>" . $value["nome_aluno"] . "</td> 
 					<td>" . $value["media_aluno"] . "</td> 
 					<td class='text-primary'>" . $cont . "º</td> 
 					</tr>";
 					$cont++;
+
 				}
 			?>
 			

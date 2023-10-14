@@ -11,7 +11,7 @@
 <?php include '../../dao/prof_dao.php';?>
 <title>Opções de Provas</title>
 
-<main class="d-flex align-items-center">
+<main class="d-flex align-items-center pb-3">
 	<div class="container">
 		<form method="POST">
 			<h1>Opções de Prova</h1>

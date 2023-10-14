@@ -34,31 +34,45 @@
 						<tr> 
 							<?php 
 								if($init_cont == 0){ 
+
 									echo "<td>" . $value["nome_aluno"] . "</td>";
 									$nota_value = $pauta_dao->GetNota($value["id_aluno"]);
+
 									$media_dao = new MediaDao();
 									$media_value = $media_dao->GetMediaId($value["id_aluno"]);
 
 									foreach ($nota_value as $value) {
 
 										if($value["nota"] >= 9.5){
+
 											if($value["nota"] == 9.5){
-												echo "<td class='text-primary'>" . substr(10.01, 0, 4) . "</td> ";  
+
+												echo "<td class='text-primary'>" . substr(10.01, 0, 4) . "</td> ";
+
 											}else{
+
 												echo "<td class='text-primary'>" . substr($value["nota"], 0, 4) . "</td> ";  
+											
 											}
+
 										}else{
+
 											echo "<td class='text-danger'>" . substr($value["nota"], 0, 3) . "</td> ";  
+										
 										}
 									} 
 									
 
 									if($media_value["media_aluno"] >= 9.5){
+
 										echo "<td class='text-success'> ".intval($media_value["media_aluno"])." </td> ";  
 										echo "<td class='text-success'> Aprovado </td> ";  
+
 									} else {
+
 										echo "<td class='text-danger'> ".intval($media_value["media_aluno"])." </td> ";
 										echo "<td class='text-danger'> Reprovado </td> ";
+
 									}
 
 								 } 
@@ -67,7 +81,9 @@
 					<?php
 					$init_cont++;
 					if($init_cont == $end_cont){
+
 						$init_cont=0;
+						
 					}
 				}
 			?>

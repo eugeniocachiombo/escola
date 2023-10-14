@@ -9,6 +9,9 @@
 <?php include '../../dao/aluno_dao.php';?>
 <?php include '../../dao/prova_dao.php';?>
 <?php include '../../dao/prof_dao.php';?>
+<?php include '../../dao/pauta_dao.php';?>
+<?php include '../../dao/marcar_prova_dao.php';?>
+<?php include '../../dao/disciplina_dao.php';?>
 <title>Recurso e Melhoria</title>
 
 <main class="d-flex justify-content-center">
@@ -32,9 +35,7 @@
 
 			echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
 		}
-	?>
 
-		<?php
 		$id_aluno = $_POST["id_aluno"];
 		$id_disc = $_POST["id_disc"];
 		$nome_disc = $_POST["nome_disc"];
@@ -65,38 +66,17 @@
 			
 				echo "<p align= 'center' style= 'background: green; color: white' > Melhoria feito com sucesso, disciplina: '****".$nome_disc."****'</p>"; 
 
-				$con = GetConnection();
-				$sql = "update pauta 
-						set id_aluno = ?,
-						id_disc = ?,
-						nota = ?
-						where id_pauta = ?";
-
-				$nova_nota = $nota + rand(0, 7);
-				$stmt = $con->prepare($sql);
-				$stmt->bindValue(1, $id_aluno);
-				$stmt->bindValue(2, $id_disc);
-				$stmt->bindValue(3, $nova_nota);
-				$stmt->bindValue(4, $id_pauta);
-				$stmt->execute();
+				$pauta_dao = new PautaDao();
+				$new_nota = $nota + rand(0, 7);
+				$pauta_dao->Update($id_aluno,  $id_disc, $new_nota, $id_pauta);
 
 			} elseif ($converted <= 7) {
 			
 				echo "<p align= 'center' style= 'background: green; color: white' > Recurso feito com sucesso, disciplina '****".$nome_disc."****'</p>"; 
 
-				$con = GetConnection();
-				$sql = "update pauta 
-						set id_aluno = ?,
-						id_disc = ?,
-						nota = ?
-						where id_pauta = ?";
-				$nova_nota = $nota + rand(0, 13);
-				$stmt = $con->prepare($sql);
-				$stmt->bindValue(1, $id_aluno);
-				$stmt->bindValue(2, $id_disc);
-				$stmt->bindValue(3, $nova_nota);
-				$stmt->bindValue(4, $id_pauta);
-				$stmt->execute();
+				$pauta_dao = new PautaDao();
+				$new_nota = $nota + rand(0, 13);
+				$pauta_dao->Update($id_aluno,  $id_disc, $new_nota, $id_pauta);
 
 			} else {
 				echo "<p align= 'center' style= 'background: red; color: white' > Impossível fazer Recurso, a disciplina '****".$nome_disc."****' já foi dispensada</p>"; 

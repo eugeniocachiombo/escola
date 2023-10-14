@@ -11,6 +11,21 @@ class PautaDao {
 		$stmt->bindValue(3, $nota);
 		$stmt->execute();
 	}
+
+    function Update($id_aluno,  $id_disc, $nota, $id_pauta){
+        $con = GetConnection();
+		$sql = "update pauta 
+				set id_aluno = ?,
+				id_disc = ?,
+				nota = ?
+				where id_pauta = ?";
+		$stmt = $con->prepare($sql);
+		$stmt->bindValue(1, $id_aluno);
+		$stmt->bindValue(2, $id_disc);
+		$stmt->bindValue(3, $nota);
+		$stmt->bindValue(4, $id_pauta);
+		$stmt->execute();
+	}
 	
     function GetDiscAluno( $id_disc, $id_aluno){
 		$con = GetConnection();
