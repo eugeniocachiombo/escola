@@ -23,6 +23,7 @@
 				if (isset($_POST["resultado"])) {
 					
 					$aluno = new Aluno();
+
 					$aluno->SetId($_SESSION["id"]);
 					$aluno->SetNome($_SESSION["nome"]);
 					$aluno->SetEmail($_SESSION["email"]);
@@ -37,8 +38,7 @@
 
 					$prova->SetAceite(true);
 					$prova_dao->Result($prova);
-
-					echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
+					echo "<br><a href= 'index.php' style= 'color: white' > Actualizar </a><br> <br>";
 				}
 			?>
 		</div>
