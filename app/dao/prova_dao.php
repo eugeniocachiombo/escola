@@ -91,7 +91,16 @@ class ProvaDao
                         <input type = 'hidden' name = 'nome_disc' value = "<?php echo $result[ 'nome_disc' ] ?>">
                         <input type = 'hidden' name = 'id_pauta' value = "<?php echo $value['id_pauta'] ?>">
                         <input type = 'hidden' name = 'nota' value = "<?php echo $value['nota'] ?>">
-                        <td> <input class="form-control" type = 'submit' name = 'recurso' value = 'Fazer Melhoria/Recurso'> </td>
+                        <?php
+                            if($value['nota'] > 6){
+                                ?> 
+                                    <td> <input class="form-control" type = 'submit' name = 'recurso' value = 'Fazer Melhoria/Recurso'> </td> 
+                                <?php
+                            }else{
+                                    echo "<td class='bg-danger'> Impossível recuperar </td>";
+                            }
+                        ?> 
+                        
                     </form>
                 </tr>
                 <?php
@@ -169,7 +178,7 @@ class ProvaDao
             <table border = '2' align = 'center'>
 
             <tr bgcolor = '#004c14'>
-            <th>Média Final</th>
+            <th>Média Provisória</th>
 
             <?php	foreach ( $result as $value ) {
                 ?>
@@ -264,17 +273,25 @@ class ProvaDao
     function PassedMedia($prova) {
 
         if ( $prova->GetAluno()->GetRegisted() == true ) {
+        /*
+            if ( $prova->GetAceite() == true && $prova->GetNota() >= 14 ) {
 
-            if ( $prova->GetAceite() == true && $prova->GetNota() >= 9.5 ) {
+                echo "<label style='color: #24fe00'> Dispensado </label>";
 
-                echo "<label style='color: #24fe00'> Aprovado </label>";
+            } elseif ( $prova->GetNota() >= 10 ) {
+
+                echo "<label style='color: #00d7fe'> Aprovado </label>";
+
+            } elseif ( $prova->GetNota() >= 7 ) {
+
+                echo "<label style='color: #ff8585'> Melhoria de notas </label>";
 
             } else {
 
-                echo "<label style='color: #fd6652'> Reprovado </label>";
+                    echo "<label style='color: #fd6652'> Reprovado </label>";
 
             }
-
+        */
         }
     }
 }

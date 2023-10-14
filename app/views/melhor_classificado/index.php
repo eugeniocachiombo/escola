@@ -16,7 +16,6 @@
 				<th> Percentagem </th>
 				<th> Obs. </th>
 			</tr>
-
 			
 			<?php
 				$media_dao = new MediaDao();
@@ -24,7 +23,7 @@
 				$cont = 1;
 				
 				foreach($media_value as $value){
-					
+
 					$porcent = ( $value["media_aluno"] * 100 ) / 20;
 					echo "<tr> 
 					<td>" . $value["nome_aluno"] . "</td> 
@@ -42,7 +41,6 @@
 
 				}
 			?>
-			
 			
 		</table>
 	</div>

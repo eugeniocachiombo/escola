@@ -11,6 +11,14 @@ class DisciplinaDao {
         return $stmt->fetch();
     }
 
+    function GetTotal() {
+        $con = GetConnection();
+        $sql = 'select count(*) from disciplina';
+        $stmt = $con->prepare( $sql );
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     function GetAllWithId($id_disc) {
         $con = GetConnection();
         $sql = "select * from disciplina 
