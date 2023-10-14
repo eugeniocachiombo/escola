@@ -9,12 +9,14 @@
 <?php include '../../dao/aluno_dao.php';?>
 <?php include '../../dao/prova_dao.php';?>
 <?php include '../../dao/prof_dao.php';?>
+<?php include '../../dao/pauta_dao.php';?>
+<?php include '../../dao/marcar_prova_dao.php';?>
+<?php include '../../dao/disciplina_dao.php';?>
 <title>Marcação de provas</title>
-
 
 <main class="d-flex align-items-center">
 	<div class="container ">
-		
+
 		<form class="mb-5" method="POST">
 			<h1>!!!Marque aqui a sua prova!!!</h1>
 			<input class="form-control" type="submit" name="marcarProva" value="Marcar Prova">
@@ -23,6 +25,7 @@
 		<?php
 			
 			$aluno = new Aluno();
+
 			$aluno->SetId($_SESSION["id"]);
 			$aluno->SetNome($_SESSION["nome"]);
 			$aluno->SetEmail($_SESSION["email"]);
@@ -33,78 +36,79 @@
 
 			if (isSet($_POST["marcarProva"])) {?>
 
-				<form method="POST">
+		<form method="POST">
 
-					<input style="background:#068ccb; color: white; " type="text" readonly name="nome"
-						value="<?php echo $aluno->GetNome()?>" placeholder="Aluno">
+			<div class="row">
+				<div class=" d-table d-md-flex">
+					<div class="col m-3">
+						<input class="form-control" style="background:#068ccb; color: white; " type="text" readonly name="nome"
+							value="<?php echo $aluno->GetNome()?>" placeholder="Aluno">
+					</div>
 
-					<?php 
-						$con = GetConnection();
-						$sql = "select * from disciplina 
-								inner join professor 
-								On disciplina.id_prof = professor.id_prof";
-						$stmt = $con->prepare($sql);
-						$stmt->execute();
-						$result = $stmt->fetchAll();?>
+					<div class="col m-3">
+						<?php 
+							$disciplina_dao = new DisciplinaDao();
+							$result = $disciplina_dao->GetAll();
+						?>
 
-					<select style="background:#068ccb; color: white;" name="id_disc">
+						<select required class="form-control" style="background:#068ccb; color: white;" name="id_disc">
+							<option name="" id="">Selecione a disciplina...</option>
+							<?php	
+								foreach ($result as $value) {?>
+									<option value="<?php echo $value["id_disc"]?>">
+										<?php echo $value["nome_disc"]; ?>
+									</option>
+							<?php } ?>
+						</select>
+					</div>
+					
+					<div class="col m-3">
+						<input class="form-control" style="background:#068ccb; color: white; " readonly type="text" name="data"
+							value="<?php echo date("Y-m-d") ?>" placeholder="Data">
+					</div>
+				</div>
+				
+				<div class="d-table d-md-flex">
+					<div class="col m-3">
+						<input class="form-control" type="submit" name="marcado" value="Marcar">
+					</div>
 
-						<?php	foreach ($result as $value) {?>
+					<div class="col m-3">
+						<input class="form-control" type="submit" name="" value="Cancelar">
+					</div>
+				</div>
+			</div>
 
-						<option value="<?php echo $value["id_disc"]?>"><?php echo $value["nome_disc"]; } ?>
+		</form>
 
-						</option>
-
-					</select>
-
-					<input style="background:#068ccb; color: white; " readonly type="text" name="data"
-						value="<?php echo date("Y-m-d") ?>" placeholder="Data">
-					<input type="submit" name="marcado" value="Marcar">
-					<input type="submit" name="" value="Cancelar">
-
-				</form>
-
-			<?php	
+		<?php	
 
 			}	elseif (isSet($_POST["marcado"])) {
 
-				$id_disc = $_POST["id_disc"];
-
-				$sql = "select * from disciplina 
-				inner join professor 
-				On disciplina.id_prof = professor.id_prof
-				where id_disc = ? ";
-				$con = GetConnection();
-				$stmt = $con->prepare($sql);
-				$stmt->bindValue(1, $id_disc);
-				$stmt->execute();
-				$dates = $stmt->fetch();
+				$disciplina_dao = new DisciplinaDao();
+				$result = $disciplina_dao->GetAllWithId($_POST["id_disc"]);
 				
 				$professor = new Professor();
-				$professor->SetId($dates["id_prof"]);
-				$professor->SetNome($dates["nome_prof"]);
-				$professor->SetEmail($dates["email_prof"]);
-				$professor->SetIdade($dates["idade_prof"]);
-				$professor->SetGenero($dates["genero_prof"]);
-				$professor->SetMorada($dates["morada_prof"]);
+
+				$professor->SetId($result["id_prof"]);
+				$professor->SetNome($result["nome_prof"]);
+				$professor->SetEmail($result["email_prof"]);
+				$professor->SetIdade($result["idade_prof"]);
+				$professor->SetGenero($result["genero_prof"]);
+				$professor->SetMorada($result["morada_prof"]);
 
 				$disciplina = new Disciplina($professor);
-				$disciplina->SetId($dates["id_disc"]);
-				$disciplina->SetNomeDisciplina($dates["nome_disc"]);
+
+				$disciplina->SetId($result["id_disc"]);
+				$disciplina->SetNomeDisciplina($result["nome_disc"]);
 
 				$prova = new Prova($aluno, $disciplina);
 				$prova->SetAceite(true);
 				$prova->SetData($_POST["data"]);
 				$prova->GetAluno()->SetRegisted(true);
 						
-				$sql = "select * from marcar_prova 
-				where id_disc = ? and id_aluno = ?";
-				$stmt = $con->prepare($sql);
-				$stmt->bindValue(1, $disciplina->GetId());
-				$stmt->bindValue(2, $aluno->GetId());
-				$stmt->execute();
-				$result = $stmt->fetch();
-
+				$marcar_prova_dao = new MarcarProvaDao();
+				$result = $marcar_prova_dao->GetWithAlunoDisc($disciplina->GetId(), $aluno->GetId());
 
 				if (empty($result["id_disc"]) && empty($result["id_aluno"])) {
 						
@@ -120,27 +124,21 @@
 						echo "<p align= 'center'>  ".$_SESSION["prof"] ." " .$professor->GetNome()."</p>";
 						echo "<a href='marcar_prova.php' style='color:white; text-align: center'> Limpar </a>";
 
-						$sql = "insert into marcar_prova (id_aluno, id_disc, id_prof) values(?, ?, ?)";
-
-						$stmt = $con->prepare($sql);
-						$stmt->bindValue(1, $aluno->GetId());
-						$stmt->bindValue(2, $disciplina->GetId());
-						$stmt->bindValue(3, $professor->GetId());
+						$result = $marcar_prova_dao->Create($aluno->GetId(), $disciplina->GetId(), $professor->GetId());
 						
-						if($stmt->execute()){
+						if($result){
 							echo "<p align= 'center' style= 'background: green' > Prova marcada com sucesso </p>";
 						}else{
 							echo "<p align= 'center' style= 'background: red' > Erro ao marcar prova </p>";
 						}
 				} else{
 						echo "<h2> <p align= 'center' style= 'background: red; color: white' >  Não é possível marcar esta prova, já existe prova marcada com essa disciplina   </p> </h2>";
-						echo "<a href='marcar_prova.php' style='color:white; text-align: center'> Limpar </a>";
+						echo "<a href='marcar_prova.php' style='color:white; text-align: center'> Actualizar </a>";
 				} 
 			}
 		?>
 	</div>
 </main>
-
 
 <?php include '../_inc/footer.php';?>
 <?php include '../_inc/footHTML.php';?>

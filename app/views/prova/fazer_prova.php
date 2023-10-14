@@ -48,34 +48,33 @@
 					<th>Opções</th>
 				</tr>
 
-				<tr>
 					<?php
 						foreach ($result as $value) {
+							echo "<tr>";	
+								echo "<td>" . $aluno->GetNome() . "</td>";
 
-							echo "<td>" . $aluno->GetNome() . "</td>";
+								$disciplina_dao = new DisciplinaDao();
+								$result = $disciplina_dao->GetWithId($value["id_disc"]);
+								echo "<td>" . $result["nome_disc"] . "</td>"; 
+								
+								$professor_dao = new ProfessorDao();
+								$result = $professor_dao->GetWithId( $value["id_prof"] );
+								echo "<td>" . $result["nome_prof"] . "</td>"; 
 
-							$disciplina_dao = new DisciplinaDao();
-							$result = $disciplina_dao->GetWithId($value["id_disc"]);
-							echo "<td>" . $result["nome_disc"] . "</td>"; 
-							
-							$professor_dao = new ProfessorDao();
-							$result = $professor_dao->GetWithId( $value["id_prof"] );
-							echo "<td>" . $result["nome_prof"] . "</td>"; 
-
-							echo "<td>"; ?>
-								<form method="POST" action="fazer_prova.php">
-									<input type="hidden" name="id_disc" value="<?php echo $value["id_disc"] ?>">
-									<input type="hidden" name="id_aluno" value="<?php echo $value["id_aluno"] ?> ">
-									<input type="hidden" name="id_prof" value="<?php echo $value["id_prof"] ?>">
-									<input type="hidden" name="id_marcar_prova" value="<?php echo $value["id_marcar_prova"] ?>">
-									<input class="form-control" type="submit" name="comecar" value="Começar"> </a>
-								</form>
-								<?php	
-								$cont++;
-							echo "<td>";
+								echo "<td>"; ?>
+									<form method="POST" action="fazer_prova.php">
+										<input type="hidden" name="id_disc" value="<?php echo $value["id_disc"] ?>">
+										<input type="hidden" name="id_aluno" value="<?php echo $value["id_aluno"] ?> ">
+										<input type="hidden" name="id_prof" value="<?php echo $value["id_prof"] ?>">
+										<input type="hidden" name="id_marcar_prova" value="<?php echo $value["id_marcar_prova"] ?>">
+										<input class="form-control" type="submit" name="comecar" value="Começar"> </a>
+									</form>
+									<?php	
+									$cont++;
+								echo "<td>";
+							echo "</tr>";	
 						}
 					?>
-				</tr>
 			</table>
 		</div>
 
