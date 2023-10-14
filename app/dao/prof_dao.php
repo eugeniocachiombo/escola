@@ -6,6 +6,7 @@ class ProfessorDao {
     }
 
     function GetWithId( $id_prof ) {
+        $con = GetConnection();
         $sql = 'select * from professor where id_prof = ?';
         $stmt = $con->prepare( $sql );
         $stmt->bindValue( 1, $id_prof );

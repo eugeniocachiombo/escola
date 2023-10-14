@@ -113,7 +113,7 @@
 					
 					$select = "select * from pauta 
 					where id_disc= ? and id_aluno = ?";
-
+					$con = GetConnection();
 					$stmt = $con->prepare($select);
 					$stmt->bindValue(1, $disciplina->GetId());
 					$stmt->bindValue(2, $aluno->GetId());
