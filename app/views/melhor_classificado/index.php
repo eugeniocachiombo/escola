@@ -13,6 +13,7 @@
 			<tr>
 				<th> Nome do Aluno </th>
 				<th> Média do Aluno </th>
+				<th> Percentagem </th>
 				<th> Obs. </th>
 			</tr>
 
@@ -23,11 +24,19 @@
 				$cont = 1;
 				
 				foreach($media_value as $value){
-
+					
+					$porcent = ( $value["media_aluno"] * 100 ) / 20;
 					echo "<tr> 
 					<td>" . $value["nome_aluno"] . "</td> 
-					<td>" . $value["media_aluno"] . "</td> 
-					<td class='text-primary'>" . $cont . "º</td> 
+					<td>" . round($value["media_aluno"]) . "</td>"; 
+
+					if($porcent >= 50.0){
+						echo "<td class='text-success' >" . number_format ( $porcent, 1 ) . "% </td>"; 
+					}else{
+						echo "<td class='text-danger' >" . number_format ( $porcent, 1 ) . "% </td>"; 
+					}
+					
+					echo "<td class='text-primary'>" . $cont . "º</td> 
 					</tr>";
 					$cont++;
 
