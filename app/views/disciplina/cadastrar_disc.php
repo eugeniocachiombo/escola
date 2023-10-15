@@ -22,13 +22,19 @@
 						$id_prof = $_POST["id_prof"];
 
 						$disc_dao = new DisciplinaDao();
-					
-						if ( $disc_dao->Create( $nome_disc, $id_prof ) ) {
-							echo "<p align= 'center' style= 'background: green; color: white' > Cadastrado com sucesso </p>";
-						} else{
-							echo "<p align= 'center' style= 'background: red; color: white' > Erro!!! ao cadastrar </p>";
-						}
 
+						if( $disc_dao->GetWithName($nome_disc) ){
+
+							echo "<p align= 'center' style= 'background: red; color: white' >Já existe uma Disciplina com este nome </p>";
+
+						}else{
+
+							if ( $disc_dao->Create( $nome_disc, $id_prof ) ) {
+								echo "<p align= 'center' style= 'background: green; color: white' > Cadastrado com sucesso </p>";
+							} else{
+								echo "<p align= 'center' style= 'background: red; color: white' > Erro!!! ao cadastrar </p>";
+							}
+						}
 					}
 				?>
 			</div>

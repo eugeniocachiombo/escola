@@ -20,6 +20,15 @@ class DisciplinaDao {
         return $stmt->fetch();
     }
 
+    function GetWithName($nome_disc) {
+        $con = GetConnection();
+        $sql = 'select * from disciplina where nome_disc = ?';
+        $stmt = $con->prepare( $sql );
+        $stmt->bindValue( 1, $nome_disc );
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     function GetTotal() {
         $con = GetConnection();
         $sql = 'select count(*) from disciplina';
