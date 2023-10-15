@@ -77,10 +77,10 @@
 									
 									
 									if($media_value["media_aluno"] >= 9.5 && $cont_disc == $result["count(*)"]){
-										echo "<td class='text-success'> ".intval($media_value["media_aluno"])." </td> ";  
+										echo "<td class='text-success'> ".round($media_value["media_aluno"])." </td> ";  
 										echo "<td class='text-success'> Aprovado </td> ";  
 									} else if($media_value["media_aluno"] <= 9.4 && $cont_disc == $result["count(*)"]) {
-										echo "<td class='text-danger'> ".intval($media_value["media_aluno"])." </td> ";
+										echo "<td class='text-danger'> ".round($media_value["media_aluno"])." </td> ";
 										echo "<td class='text-danger'> Reprovado </td> ";
 									} else {
 										echo "<td class='text-danger'> ----- </td> ";
