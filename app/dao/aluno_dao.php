@@ -25,6 +25,15 @@ class AlunoDao {
         return $stmt->fetch();
     }
 
+    function VerifyEmail( $email ) {
+        $con = GetConnection();
+        $sql = 'select * from aluno where email_aluno = ?';
+        $stmt = $con->prepare( $sql );
+        $stmt->bindValue( 1, $email );
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     function SeeGrade() {
         if ( $this->GetRegisted() == true ) {
             $this->Registed();

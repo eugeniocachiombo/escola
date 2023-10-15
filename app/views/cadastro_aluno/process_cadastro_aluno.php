@@ -14,6 +14,7 @@ if ( isset( $_POST[ 'cadastrar' ] ) ) {
         echo "<p align= 'center' style= 'background: red' > Existe campo vazio </p>";
 
     } else {
+
         $pessoa = new Pessoa();
         $pessoa->SetId(0);
         $pessoa->SetNome($nome);
@@ -23,12 +24,19 @@ if ( isset( $_POST[ 'cadastrar' ] ) ) {
         $pessoa->SetGenero($genero);
         $pessoa->SetMorada($morada);
         $aluno_dao = new AlunoDao();
-        $result = $aluno_dao->Create($pessoa);
 
-        if ( $result ) {
-            echo "<p align= 'center' style= 'background: green' > Cadastrado com sucesso </p>";
+        if( $aluno_dao->VerifyEmail( $pessoa->GetEmail() ) ){
+
+            echo "<p align= 'center' style= 'background: red; color: white'> O email já está sendo utilizado</p>";
+        
         } else {
-            echo "<p align= 'center' style= 'background: red' > Erro ao inserir </p>";
+            
+            if ( $aluno_dao->Create($pessoa) ) {
+                echo "<p align= 'center' style= 'background: green' > Cadastrado com sucesso </p>";
+            } else {
+                echo "<p align= 'center' style= 'background: red' > Erro ao inserir </p>";
+            }
+
         }
 
     }

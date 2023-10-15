@@ -2,7 +2,7 @@
 <?php include 'menu/bars.php';?>
 <?php include '../_inc/header.php';?>
 <?php include '../../config/db/connection.php';?>
-<?php include '../../dao/aluno_dao.php';?>
+<?php include '../../dao/prof_dao.php';?>
 <title>Autenticação</title>
 
 <main class=" d-flex align-items-center">
@@ -15,7 +15,7 @@
                         <hr>
                     </div>
 
-                    <?php include 'process_login_aluno.php';?>
+                    <?php include 'process_login_prof.php';?>
 
                     <div class="col">
                         <label class="text-start w-100" for="email">Email: </label> <br>
@@ -33,7 +33,7 @@
                     </div>
 
                     <p style='background: blue; color: white; width: 200px;'>
-                        <?php echo "Somente para alunos" ?>
+                        <?php echo "Somente para professores" ?>
                     </p>
 
                 </div>

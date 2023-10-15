@@ -3,8 +3,8 @@
 <?php include '../_inc/header.php';?>
 <?php include '../../config/db/connection.php';?>
 <?php include '../../class/pessoa.php';?>
-<?php include '../../dao/aluno_dao.php';?>
-<title>Cadastrar Aluno</title>
+<?php include '../../dao/prof_dao.php';?>
+<title>Cadastrar Professor</title>
 
 <main class=" d-flex align-items-center mb-4 mt-4">
 	<div class="container">
@@ -12,10 +12,10 @@
 			<form method="POST">
 				<div class="d-table w-80">
 					<div class="w-60">
-						<h1 class="text-center text-md-start" style="text-decoration: underline">Cadastrar Aluno</h1> <hr>
+						<h1 class="text-center text-md-start" style="text-decoration: underline">Cadastrar Professor</h1> <hr>
 					</div>
 
-					<?php include 'process_cadastro_aluno.php';?>
+					<?php include 'process_cadastro_prof.php';?>
 							
 					<div class="d-table d-md-flex ">
 						<div class="col  m-2">

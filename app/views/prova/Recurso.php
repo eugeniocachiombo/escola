@@ -17,31 +17,31 @@
 <main class="d-flex justify-content-center">
 	<div class="container">
 		<?php
-		if (isset($_POST["resultado"])) {
+			if (isset($_POST["resultado"])) {
 
-			$aluno = new Aluno();
-			$professor = new Professor();
-			$disciplina = new Disciplina($professor);
+				$aluno = new Aluno();
+				$professor = new Professor();
+				$disciplina = new Disciplina($professor);
 
-			$prova = new Prova($aluno, $disciplina);
+				$prova = new Prova($aluno, $disciplina);
 
-			$nome = $_SESSION["nome"];
-			$id = $_SESSION["id"];
+				$nome = $_SESSION["nome"];
+				$id = $_SESSION["id"];
 
-			$prova->setAceite(true);
-			$aluno->setNome($nome);
-			$aluno->setId($id);
-			$prova->Resultado();
+				$prova->setAceite(true);
+				$aluno->setNome($nome);
+				$aluno->setId($id);
+				$prova->Resultado();
 
-			echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
-		}
+				echo "<br><a href= 'index.php' style= 'color: white' > Limpar Registro </a><br> <br>";
+			}
 
-		$id_aluno = $_POST["id_aluno"];
-		$id_disc = $_POST["id_disc"];
-		$nome_disc = $_POST["nome_disc"];
-		$id_pauta = $_POST["id_pauta"];
-		$nota = $_POST["nota"];
-	?>
+			$id_aluno = $_POST["id_aluno"];
+			$id_disc = $_POST["id_disc"];
+			$nome_disc = $_POST["nome_disc"];
+			$id_pauta = $_POST["id_pauta"];
+			$nota = $_POST["nota"];
+		?>
 
 		<form method="POST">
 			<p align='center' style='color: white;'>
